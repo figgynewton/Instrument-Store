@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Instrument Store Final</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<div id="instruments">
+    <div>
+        <button v-on:click="emptyCart" class="right"> Cart: {{cart.length}}</button>
+        <button v-on:click="popUp2" class="left">Add New Instrument</button>
+        <div class="popUp2"v-bind:class="{hide:selected==false,popUp2:selected==true}">
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/512/126/126497.png" v-on:click="popUp2" class="exit"/>
+                <input type="text" placeholder="Instrument Name" v-model="name">
+                <br>
+                <input type="text" placeholder="Instrument Type" v-model="type">
+                <br>
+                <label for="new">Choose Brand:</label>
+
+                <select name="brand" id="brand" v-model="brand" >
+                    <option value="Yamaha">Yamaha</option>
+                    <option value="Maton">Maton</option>
+                    <option value="Fender">Fender</option>
+                </select>
+                <br>
+                <input type="text" placeholder="Instrument Price" v-model="price">
+                <br>
+                <input type="text" placeholder="Enter Image URL" v-model="img">
+                {{mess}}
+                <br>
+                <button v-on:click="newInstrument">Add New Instrument</button>
+
+            </div>
+        </div>
+    </div>
+    <div v-if="instrument.length==0" >Store is Empty</div>
+    <div class="product" v-bind:class="item.brand" v-for="(item,index) in instrument" v-on:click="popUp(index)">
+        <div> <img v-bind:src="item.img"></img> </div>
+        {{item.name}}
+        <button v-on:click="submit(item,index);popUp(index)"> Add To Cart</button>
+
+        <div v-bind:class="{hide:item.selected==false,popUp:item.selected==true}">
+            <div >
+                <img v-bind:src="item.img">
+                Name: {{item.name}}
+                <br>
+                Type: {{item.type}}
+                <br>
+                Brand: {{item.brand}}
+                <br>
+                Price: {{item.price}}
+                <br>
+                <button v-on:click="submit(item,index);popUp(index)"> Add To Cart</button>
+                </img>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<script src="vue.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
